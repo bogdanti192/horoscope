@@ -1,269 +1,374 @@
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// scripts/scripts.js - Utility scripts for Horoscope website
 
-:root {
-    --primary: #8B5CF6;
-    --primary-dark: #7C3AED;
-    --secondary: #06B6D4;
-    --accent: #10B981;
-    --text: #1F2937;
-    --text-light: #6B7280;
-    --background: #F9FAFB;
-    --white: #FFFFFF;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --radius: 12px;
-}
+/**
+ * Utility functions for the Horoscope website
+ */
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    color: var(--text);
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-/* Header styles */
-.header {
-    text-align: center;
-    margin-bottom: 3rem;
-    color: var(--white);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.logo-icon {
-    font-size: 3rem;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-
-.logo h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-}
-
-.tagline {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    font-weight: 300;
-}
-
-/* Main content layout */
-.main-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 2rem;
-}
-
-@media (max-width: 768px) {
-    .main-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+class HoroscopeUtils {
+    constructor() {
+        this.apiBaseUrl = window.location.origin;
     }
-}
 
-/* Zodiac section */
-.zodiac-section h2,
-.humor-section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--white);
-    text-align: center;
-}
-
-.zodiac-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-}
-
-@media (max-width: 480px) {
-    .zodiac-grid {
-        grid-template-columns: repeat(2, 1fr);
+    // Initialize all utility functions
+    init() {
+        this.setupServiceWorker();
+        this.setupAnalytics();
+        this.setupErrorHandling();
+        this.setupPerformanceMonitoring();
+        console.log('🔮 Horoscope utilities initialized');
     }
-}
 
-.zodiac-item {
-    background: var(--white);
-    padding: 1.5rem 1rem;
-    border-radius: var(--radius);
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    box-shadow: var(--shadow);
-}
-
-.zodiac-item:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary);
-}
-
-.zodiac-item.selected {
-    background: var(--primary);
-    color: var(--white);
-    border-color: var(--primary-dark);
-    transform: scale(1.05);
-}
-
-.zodiac-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-.zodiac-name {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-}
-
-.zodiac-dates {
-    font-size: 0.8rem;
-    opacity: 0.7;
-}
-
-/* Humor section */
-.humor-options {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.humor-option {
-    background: var(--white);
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.humor-option:hover {
-    transform: translateX(5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.humor-option.selected {
-    border-color: var(--primary);
-    background: linear-gradient(135deg, var(--white) 0%, #f0f9ff 100%);
-    transform: translateX(10px);
-}
-
-.humor-icon {
-    font-size: 2rem;
-    flex-shrink: 0;
-}
-
-.humor-content h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-    color: var(--text);
-}
-
-.humor-content p {
-    color: var(--text-light);
-    font-size: 0.9rem;
-}
-
-/* CTA Button */
-.cta-button {
-    width: 100%;
-    padding: 1.25rem 2rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: var(--white);
-    border: none;
-    border-radius: var(--radius);
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    box-shadow: var(--shadow-lg);
-}
-
-.cta-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-}
-
-.cta-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.cta-button .arrow {
-    transition: transform 0.3s ease;
-}
-
-.cta-button:hover:not(:disabled) .arrow {
-    transform: translateX(5px);
-}
-
-/* Footer */
-.footer {
-    text-align: center;
-    padding: 2rem 0 0;
-    color: var(--white);
-    opacity: 0.8;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+    // Service Worker for offline functionality
+    setupServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('✓ Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.log('✗ Service Worker registration failed:', error);
+                });
+        }
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    // Basic analytics
+    setupAnalytics() {
+        // Track page views
+        this.trackEvent('page_view', {
+            page: window.location.pathname,
+            referrer: document.referrer
+        });
+
+        // Track user interactions
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.zodiac-item, .humor-option, .cta-button')) {
+                this.trackEvent('user_interaction', {
+                    element: e.target.className,
+                    action: 'click'
+                });
+            }
+        });
     }
+
+    // Error handling
+    setupErrorHandling() {
+        window.addEventListener('error', (e) => {
+            this.trackEvent('error', {
+                message: e.message,
+                file: e.filename,
+                line: e.lineno,
+                column: e.colno
+            });
+        });
+
+        // Promise rejection tracking
+        window.addEventListener('unhandledrejection', (e) => {
+            this.trackEvent('promise_rejection', {
+                reason: e.reason?.message || e.reason
+            });
+        });
+    }
+
+    // Performance monitoring
+    setupPerformanceMonitoring() {
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                const perfData = performance.timing;
+                const loadTime = perfData.loadEventEnd - perfData.navigationStart;
+                
+                this.trackEvent('performance', {
+                    load_time: loadTime,
+                    dom_ready: perfData.domContentLoadedEventEnd - perfData.navigationStart
+                });
+            });
+        }
+    }
+
+    // Track events
+    trackEvent(eventName, data = {}) {
+        // In production, send to analytics service
+        console.log(`📊 Event: ${eventName}`, data);
+        
+        // Simulate sending to analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', eventName, data);
+        }
+    }
+
+    // Local storage utilities
+    storage = {
+        set: (key, value) => {
+            try {
+                localStorage.setItem(`horoscope_${key}`, JSON.stringify(value));
+                return true;
+            } catch (e) {
+                console.error('Storage error:', e);
+                return false;
+            }
+        },
+
+        get: (key) => {
+            try {
+                const item = localStorage.getItem(`horoscope_${key}`);
+                return item ? JSON.parse(item) : null;
+            } catch (e) {
+                console.error('Storage error:', e);
+                return null;
+            }
+        },
+
+        remove: (key) => {
+            try {
+                localStorage.removeItem(`horoscope_${key}`);
+                return true;
+            } catch (e) {
+                console.error('Storage error:', e);
+                return false;
+            }
+        }
+    };
+
+    // Date utilities
+    dateUtils = {
+        getToday: () => new Date().toLocaleDateString('lv-LV'),
+        
+        getZodiacSign: (birthDate) => {
+            const date = new Date(birthDate);
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            
+            if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'Auns';
+            if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'Vērsis';
+            if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'Dvīņi';
+            if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'Vēzis';
+            if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'Lauva';
+            if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'Jaunava';
+            if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'Svari';
+            if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'Skorpions';
+            if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'Strēlnieks';
+            if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return 'Mežāzis';
+            if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'Ūdensvīrs';
+            if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return 'Zivis';
+            
+            return null;
+        },
+
+        formatDate: (date) => {
+            return new Date(date).toLocaleDateString('lv-LV', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+    };
+
+    // API utilities
+    api = {
+        getHoroscope: async (sign, humorLevel = 'normal') => {
+            try {
+                const response = await fetch(`/api/horoscope?sign=${sign}&humor_level=${humorLevel}`);
+                if (!response.ok) throw new Error('API request failed');
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                return this.generateFallbackHoroscope(sign, humorLevel);
+            }
+        },
+
+        getZodiacSigns: async () => {
+            try {
+                const response = await fetch('/api/zodiac-signs');
+                if (!response.ok) throw new Error('API request failed');
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                return this.getDefaultZodiacSigns();
+            }
+        }
+    };
+
+    // Fallback horoscope generator
+    generateFallbackHoroscope(sign, humorLevel) {
+        const templates = {
+            light: [
+                `Laba diena ${sign}! Šodien sagaidiet mazus, bet jautrus pārsteigumus.`,
+                `Esi pozitīvi noskaņots, ${sign}! Vislabākais vēl priekšā.`,
+                `Šodien ir lieliska diena saules enerģijas uzņemšanai, ${sign}!`
+            ],
+            normal: [
+                `Planētu izlīdzinājums rāda, ka ${sign} šodien būs veiksmīgs komunikācijā.`,
+                `${sign}, šodien ir piemērots laiks izlēmumu pieņemšanai.`,
+                `Mēness fāze ietekmē ${sign} emocionālo stabilitāti šodien.`
+            ],
+            strict: [
+                `URĀ! ${sign}, šodien mainīsies VISS! Esat gatavs lieliem pārmaiņām?`,
+                `SATRIECOŠI: ${sign}, šī diena būs pagrieziena punkts jūsu dzīvē!`,
+                `BRĪDINĀJUMS: ${sign}, šodien jūs satiksiet likteni - nepalieciet mājās!`
+            ]
+        };
+
+        const randomIndex = Math.floor(Math.random() * templates[humorLevel].length);
+        
+        return {
+            sign: sign,
+            humor_level: humorLevel,
+            horoscope: templates[humorLevel][randomIndex],
+            date: this.dateUtils.getToday(),
+            is_fallback: true
+        };
+    }
+
+    // Default zodiac signs data
+    getDefaultZodiacSigns() {
+        return [
+            { name: "Auns", icon: "♈", dates: "21.03 - 19.04" },
+            { name: "Vērsis", icon: "♉", dates: "20.04 - 20.05" },
+            { name: "Dvīņi", icon: "♊", dates: "21.05 - 20.06" },
+            { name: "Vēzis", icon: "♋", dates: "21.06 - 22.07" },
+            { name: "Lauva", icon: "♌", dates: "23.07 - 22.08" },
+            { name: "Jaunava", icon: "♍", dates: "23.08 - 22.09" },
+            { name: "Svari", icon: "♎", dates: "23.09 - 22.10" },
+            { name: "Skorpions", icon: "♏", dates: "23.10 - 21.11" },
+            { name: "Strēlnieks", icon: "♐", dates: "22.11 - 21.12" },
+            { name: "Mežāzis", icon: "♑", dates: "22.12 - 19.01" },
+            { name: "Ūdensvīrs", icon: "♒", dates: "20.01 - 18.02" },
+            { name: "Zivis", icon: "♓", dates: "19.02 - 20.03" }
+        ];
+    }
+
+    // Animation utilities
+    animations = {
+        fadeIn: (element, duration = 500) => {
+            element.style.opacity = '0';
+            element.style.display = 'block';
+            
+            const start = performance.now();
+            
+            function animate(time) {
+                const elapsed = time - start;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                element.style.opacity = progress.toString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        },
+
+        slideIn: (element, from = 'left', duration = 500) => {
+            const transformMap = {
+                left: 'translateX(-100px)',
+                right: 'translateX(100px)',
+                top: 'translateY(-100px)',
+                bottom: 'translateY(100px)'
+            };
+            
+            element.style.transform = transformMap[from];
+            element.style.opacity = '0';
+            element.style.display = 'block';
+            
+            const start = performance.now();
+            
+            function animate(time) {
+                const elapsed = time - start;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                element.style.transform = `translate${from === 'left' || from === 'right' ? 'X' : 'Y'}(${(1 - progress) * 100 * (from === 'left' || from === 'top' ? -1 : 1)}px)`;
+                element.style.opacity = progress.toString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        },
+
+        pulse: (element, count = 3) => {
+            let iterations = 0;
+            
+            function animate() {
+                element.style.transform = 'scale(1.1)';
+                
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                    iterations++;
+                    
+                    if (iterations < count) {
+                        setTimeout(animate, 200);
+                    }
+                }, 200);
+            }
+            
+            animate();
+        }
+    };
+
+    // Validation utilities
+    validation = {
+        isEmail: (email) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        },
+
+        isDate: (dateString) => {
+            const date = new Date(dateString);
+            return date instanceof Date && !isNaN(date);
+        },
+
+        isZodiacSign: (sign) => {
+            const validSigns = ['Auns', 'Vērsis', 'Dvīņi', 'Vēzis', 'Lauva', 'Jaunava', 
+                              'Svari', 'Skorpions', 'Strēlnieks', 'Mežāzis', 'Ūdensvīrs', 'Zivis'];
+            return validSigns.includes(sign);
+        }
+    };
+
+    // Export data utilities
+    exportUtils = {
+        toJSON: (data, filename = 'horoscope_data.json') => {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            this.downloadBlob(blob, filename);
+        },
+
+        toCSV: (data, filename = 'horoscope_data.csv') => {
+            const headers = ['Sign', 'Humor Level', 'Horoscope', 'Date'];
+            const csv = [
+                headers.join(','),
+                ...data.map(item => [
+                    item.sign,
+                    item.humor_level,
+                    `"${item.horoscope.replace(/"/g, '""')}"`,
+                    item.date
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            this.downloadBlob(blob, filename);
+        },
+
+        downloadBlob: (blob, filename) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    };
 }
 
-.zodiac-item,
-.humor-option {
-    animation: fadeIn 0.6s ease-out forwards;
-}
+// Initialize utilities when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.horoscopeUtils = new HoroscopeUtils();
+    window.horoscopeUtils.init();
+});
 
-/* Success state */
-.success-message {
-    background: var(--accent);
-    color: var(--white);
-    padding: 1rem;
-    border-radius: var(--radius);
-    text-align: center;
-    margin-top: 1rem;
-    animation: fadeIn 0.5s ease-out;
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = HoroscopeUtils;
 }
