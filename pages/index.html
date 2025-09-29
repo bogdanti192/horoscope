@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zodiaku Horoskopi</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">♋</span>
+                <h1>Zodiaku Horoskopi</h1>
+            </div>
+            <p class="tagline">Uzziniet savu likteni ar smaidu!</p>
+        </header>
+
+        <main class="main-content">
+            <section class="zodiac-section">
+                <h2>Izvēlieties savu zodiaka zīmi</h2>
+                <div class="zodiac-grid" id="zodiacGrid">
+                    <!-- Zodiac signs will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <section class="humor-section">
+                <h2>Izvēlieties horoskopa veidu</h2>
+                <div class="humor-options">
+                    <div class="humor-option" data-level="light">
+                        <div class="humor-icon">😊</div>
+                        <div class="humor-content">
+                            <h3>Viegls</h3>
+                            <p>Smieklīgi un viegli horoskopi ikdienai</p>
+                        </div>
+                    </div>
+                    
+                    <div class="humor-option" data-level="normal">
+                        <div class="humor-icon">😄</div>
+                        <div class="humor-content">
+                            <h3>Normāls</h3>
+                            <p>Sabalansēts humors un pareģojumi</p>
+                        </div>
+                    </div>
+                    
+                    <div class="humor-option" data-level="strict">
+                        <div class="humor-icon">🤣</div>
+                        <div class="humor-content">
+                            <h3>Stingrs</h3>
+                            <p>Ļoti jocīgi un satriecoši horoskopi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="cta-button" id="showHoroscope" disabled>
+                    Apskatīt horoskopu
+                    <span class="arrow">→</span>
+                </button>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Zodiaku Horoskopi. Visas tiesības aizsargātas.</p>
+        </footer>
+    </div>
+
+    <script src="../static/js/main.js"></script>
+</body>
+</html>
